@@ -27,11 +27,11 @@ jobs:
 
       - name: Run States Data Script
         run: |
-          python States_data.py
+          python data extraction/States_data.py
 
       - name: Run VP Data Script
         run: |
-          python VP_data.py
+          python data extraction/VP_data.py
 
       - name: Commit generated CSV files
         run: |
