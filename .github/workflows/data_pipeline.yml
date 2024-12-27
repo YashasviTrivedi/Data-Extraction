@@ -25,13 +25,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install Chrome WebDriver
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+          wget -N https://chromedriver.storage.googleapis.com/$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip -d /usr/local/bin/
+          chmod +x /usr/local/bin/chromedriver
+
       - name: Run States Data Script
         run: |
-          python data extraction/States_data.py
+          python "data extraction/States_data.py"
 
       - name: Run VP Data Script
         run: |
-          python data extraction/VP_data.py
+          python "data extraction/VP_data.py"
 
       - name: Commit generated CSV files
         run: |
