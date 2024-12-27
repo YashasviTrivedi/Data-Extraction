@@ -9,15 +9,12 @@ from selenium.webdriver.support import expected_conditions as EC
 
 # Set up Chrome options
 chrome_options = Options()
-#chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
-chrome_options.add_argument("--no-sandbox")  # Required in some CI environments
-chrome_options.add_argument("--disable-dev-shm-usage")  # Handle shared memory issues
+# chrome_options.add_argument("--headless")  # Disable for debugging
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
 
 # Set up WebDriver
-# Use the ChromeDriver from the system path
 service = Service("/usr/local/bin/chromedriver-linux64/chromedriver")
-
-# Initialize the WebDriver
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # Open CSV file to store the data
@@ -27,17 +24,25 @@ with open('VP_data.csv', mode='a', newline='', encoding='utf-8') as file:
     try:
         # Open the Vidyut Pravah website
         driver.get("https://vidyutpravah.in/")
+        wait = WebDriverWait(driver, 30)
 
-        # Wait for the elements to be present in the DOM and visible
-        wait = WebDriverWait(driver, 20)  # Wait up to 20 seconds
+        # Debugging: Print page source
+        print(driver.page_source)
 
-        surplus_power = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="spanAllIndiaSurplus"]'))).text
-        avg_mcp = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="UMCP"]'))).text
-        demand_met_current = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="CurrentDemandMET"]'))).text
-        demand_met_yesterday = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="PrevDemandMET"]'))).text
-        peak_shortage = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="spanPeak"]'))).text
-        energy = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="spanEnergy"]'))).text
-        unconstrained_price = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="CongestionToday"]'))).text
+        # Check for the presence of elements in the page source
+        if 'spanAllIndiaSurplus' in driver.page_source:
+            print("Element spanAllIndiaSurplus is present.")
+        else:
+            print("Element spanAllIndiaSurplus is NOT present.")
+
+        # Extract the data using CSS Selectors
+        surplus_power = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#spanAllIndiaSurplus'))).text
+        avg_mcp = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#UMCP'))).text
+        demand_met_current = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#CurrentDemandMET'))).text
+        demand_met_yesterday = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#PrevDemandMET'))).text
+        peak_shortage = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#spanPeak'))).text
+        energy = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#spanEnergy'))).text
+        unconstrained_price = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#CongestionToday'))).text
 
         # Get the current timestamp
         timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
