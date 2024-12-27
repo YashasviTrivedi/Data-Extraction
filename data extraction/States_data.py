@@ -4,6 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # Set up Chrome options
 chrome_options = Options()
@@ -29,6 +31,7 @@ driver.get(web)
 
 # Locate all state links using the class name
 state_elements = driver.find_elements(By.CSS_SELECTOR, "a.state-names_en")
+print("State Elements:", state_elements)
 
 # Extract state names and their URLs
 state_links = {}
