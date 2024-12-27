@@ -92,7 +92,7 @@ with open(csv_file, mode="a", newline="", encoding="utf-8") as file:
                                                          f"//div[@id='{state_div_id}']//span[contains(@class, 'value_TotalEnergy_en') and contains(@class, 'value_StateDetails_en')]").text.strip()
             peak_shortage_yesterday = driver.find_element(By.XPATH,
                                                               f"//div[@id='{state_div_id}']//span[contains(@class, 'value_PeakDemand_en') and contains(@class, 'value_StateDetails_en')]").text.strip()
-
+     
             # Write data for this state to the CSV file
             writer.writerow([timestamp,
                                  state,
@@ -106,6 +106,7 @@ with open(csv_file, mode="a", newline="", encoding="utf-8") as file:
                                  ])
 
             print(f"Data recorded for {state} at {timestamp}")
+            print(current_exchange_price)
 
         except Exception as e:
                 print(f"Error extracting data for {state}: {e}")
