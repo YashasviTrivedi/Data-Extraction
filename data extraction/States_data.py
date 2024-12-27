@@ -80,6 +80,7 @@ with open(csv_file, mode="a", newline="", encoding="utf-8") as file:
 
             current_exchange_price = driver.find_element(By.XPATH,
                                                              f"//div[@id='{state_div_id}']//span[contains(@class, 'value_ExchangePrice_en') and contains(@class, 'value_StateDetails_en')]").text.strip()
+            print("current_exchange_price: ", current_exchange_price)
             yesterday_exchange_price = driver.find_element(By.XPATH,
                                                                f"//div[@id='{state_div_id}']//span[contains(@class, 'value_PrevExchangePrice_en') and contains(@class, 'value_StateDetails_en')]").text.strip()
             current_demand_met = driver.find_element(By.XPATH,
@@ -106,7 +107,7 @@ with open(csv_file, mode="a", newline="", encoding="utf-8") as file:
                                  ])
 
             print(f"Data recorded for {state} at {timestamp}")
-            print(current_exchange_price)
+           
 
         except Exception as e:
                 print(f"Error extracting data for {state}: {e}")
