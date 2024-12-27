@@ -30,7 +30,8 @@ with open('VP_data.csv', mode='a', newline='', encoding='utf-8') as file:
         # Open the Vidyut Pravah website
         driver.get("https://vidyutpravah.in/")
 
-        print(driver.page_source)
+        with open("page_source.html", "w", encoding="utf-8") as file:
+            file.write(driver.page_source)
 
 
         # Extract the data
