@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 # Set up Chrome options
 chrome_options = Options()
-chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
+#chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
 chrome_options.add_argument("--no-sandbox")  # Required in some CI environments
 chrome_options.add_argument("--disable-dev-shm-usage")  # Handle shared memory issues
 
