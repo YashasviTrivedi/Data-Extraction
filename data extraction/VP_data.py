@@ -20,7 +20,7 @@ with open('VP_data.csv', mode='a', newline='', encoding='utf-8') as file:
         # Open the Vidyut Pravah website
         driver.get("https://vidyutpravah.in/")
         driver.maximize_window() # For maximizing window
-        driver.implicitly_wait(20) # gives an implicit wait for 20 seconds
+        driver.implicitly_wait(100) # gives an implicit wait for 100 seconds
 
         # Extract the data
         surplus_power = driver.find_element(By.XPATH, '//*[@id="spanAllIndiaSurplus"]').text
