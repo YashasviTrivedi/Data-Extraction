@@ -2,12 +2,25 @@ import time
 import csv
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
+# Set up Chrome options
+chrome_options = Options()
+chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
+chrome_options.add_argument("--no-sandbox")  # Required in some CI environments
+chrome_options.add_argument("--disable-dev-shm-usage")  # Handle shared memory issues
+
 # Set up WebDriver
-driver_path = "C:/Users/Yashashvi/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe"  # Replace with the correct path
-service = Service(driver_path)
-driver = webdriver.Chrome(service=service)
+# Use the ChromeDriver from the system path
+service = Service("/usr/local/bin/chromedriver-linux64/chromedriver")
+
+# Initialize the WebDriver
+driver = webdriver.Chrome(service=service, options=chrome_options)
+
+#driver_path = "C:/Users/Yashashvi/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe"  # Replace with the correct path
+#service = Service(driver_path)
+#driver = webdriver.Chrome(service=service)
 
 # Open CSV file to store the data
 with open('VP_data.csv', mode='a', newline='', encoding='utf-8') as file:
