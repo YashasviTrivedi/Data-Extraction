@@ -27,6 +27,7 @@ jobs:
 
       - name: Install Chrome WebDriver
         run: |
+          CHROME_DRIVER_VERSION= 131.0.6778.204 
           sudo apt-get update
           sudo apt-get install -y wget unzip
           wget -N https://chromedriver.storage.googleapis.com/$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
