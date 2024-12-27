@@ -30,6 +30,9 @@ with open('VP_data.csv', mode='a', newline='', encoding='utf-8') as file:
         # Open the Vidyut Pravah website
         driver.get("https://vidyutpravah.in/")
 
+        print(driver.page_source)
+
+
         # Extract the data
         surplus_power = driver.find_element(By.XPATH, '//*[@id="spanAllIndiaSurplus"]').text
         avg_mcp = driver.find_element(By.XPATH, '//*[@id="UMCP"]').text
