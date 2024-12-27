@@ -27,17 +27,17 @@ jobs:
 
       - name: Install Chrome WebDriver
         run: |
-          CHROME_DRIVER_VERSION= 131.0.6778.204 
+          CHROME_DRIVER_VERSION=131.0.6778.204  # Replace with your desired version
           sudo apt-get update
           sudo apt-get install -y wget unzip
-          wget -N https://chromedriver.storage.googleapis.com/$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
+          wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip -d /usr/local/bin/
           chmod +x /usr/local/bin/chromedriver
 
       - name: Verify ChromeDriver installation
         run: |
           ls -l /usr/local/bin/chromedriver
-          which chromedriver
+          /usr/local/bin/chromedriver --version
 
       - name: Run States Data Script
         run: |
