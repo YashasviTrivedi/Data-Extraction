@@ -37,6 +37,7 @@ for element in state_elements:
     state_url = element.get_attribute("href")  # Get the full URL
     if state_name and state_url:
         state_links[state_name] = state_url
+print("State Links:", state_links)
 
 # Prepare the CSV file with headers
 csv_file = "States_data.csv"
