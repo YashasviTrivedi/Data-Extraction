@@ -13,7 +13,7 @@ chrome_options.add_argument("--disable-dev-shm-usage")  # Handle shared memory i
 
 # Set up WebDriver
 # Use the ChromeDriver from the system path
-service = Service("/usr/local/bin/chromedriver")
+service = Service("/usr/local/bin/chromedriver-linux64/chromedriver")
 
 # Initialize the WebDriver
 driver = webdriver.Chrome(service=service, options=chrome_options)
