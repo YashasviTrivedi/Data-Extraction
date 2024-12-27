@@ -32,7 +32,7 @@ jobs:
           sudo apt-get install -y wget unzip
           wget -N https://storage.googleapis.com/chrome-for-testing-public/$CHROME_DRIVER_VERSION/linux64/chromedriver-linux64.zip
           unzip chromedriver-linux64.zip -d /usr/local/bin/
-          sudo chmod +x /usr/local/bin/chromedriver
+          chmod +x /usr/local/bin/chromedriver-linux64/chromedriver
 
       - name: Verify ChromeDriver installation
         run: |
