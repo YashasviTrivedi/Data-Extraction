@@ -26,15 +26,6 @@ with open('VP_data.csv', mode='a', newline='', encoding='utf-8') as file:
         driver.get("https://vidyutpravah.in/")
         wait = WebDriverWait(driver, 30)
 
-        # Debugging: Print page source
-        print(driver.page_source)
-
-        # Check for the presence of elements in the page source
-        if 'spanAllIndiaSurplus' in driver.page_source:
-            print("Element spanAllIndiaSurplus is present.")
-        else:
-            print("Element spanAllIndiaSurplus is NOT present.")
-
         # Extract the data using CSS Selectors
         surplus_power = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#spanAllIndiaSurplus'))).text
         avg_mcp = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#UMCP'))).text
