@@ -4,6 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # Set up Chrome options
 chrome_options = Options()
@@ -18,10 +20,6 @@ service = Service("/usr/local/bin/chromedriver-linux64/chromedriver")
 # Initialize the WebDriver
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
-#driver_path = "C:/Users/Yashashvi/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe"  # Replace with the correct path
-#service = Service(driver_path)
-#driver = webdriver.Chrome(service=service)
-
 # Open CSV file to store the data
 with open('VP_data.csv', mode='a', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
@@ -30,26 +28,26 @@ with open('VP_data.csv', mode='a', newline='', encoding='utf-8') as file:
         # Open the Vidyut Pravah website
         driver.get("https://vidyutpravah.in/")
 
-        # Extract the data
-        surplus_power = driver.find_element(By.XPATH, '//*[@id="spanAllIndiaSurplus"]').text
-        avg_mcp = driver.find_element(By.XPATH, '//*[@id="UMCP"]').text
-        demand_met_current = driver.find_element(By.XPATH, '//*[@id="CurrentDemandMET"]').text
-        demand_met_yesterday = driver.find_element(By.XPATH, '//*[@id="PrevDemandMET"]').text
-        peak_shortage = driver.find_element(By.XPATH, '//*[@id="spanPeak"]').text
-        energy = driver.find_element(By.XPATH, '//*[@id="spanEnergy"]').text
-        unconstrained_price = driver.find_element(By.XPATH, '//*[@id="CongestionToday"]').text
+        # Wait for the elements to be present in the DOM and visible
+        wait = WebDriverWait(driver, 20)  # Wait up to 20 seconds
+
+        surplus_power = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="spanAllIndiaSurplus"]'))).text
+        avg_mcp = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="UMCP"]'))).text
+        demand_met_current = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="CurrentDemandMET"]'))).text
+        demand_met_yesterday = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="PrevDemandMET"]'))).text
+        peak_shortage = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="spanPeak"]'))).text
+        energy = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="spanEnergy"]'))).text
+        unconstrained_price = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="CongestionToday"]'))).text
 
         # Get the current timestamp
         timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
 
         # Write the data to CSV
         writer.writerow([timestamp, surplus_power, avg_mcp, demand_met_current, demand_met_yesterday,
-                             peak_shortage, energy, unconstrained_price])
+                         peak_shortage, energy, unconstrained_price])
 
         print("Data recorded at", timestamp)
 
     finally:
         # Close the WebDriver
         driver.quit()
-
-
